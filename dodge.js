@@ -28,27 +28,6 @@ function coloringArc() {
   return arcColor;
 }
 
-//円の動く方向をランダムに指定する関数
-function randomDirection() {
-  //円の動く方向・スピードをランダムに指定（xとyの増減数を、1から10の間でランダムに取得）
-  randomDirectionX = Math.ceil(Math.random() * 10);
-  randomDirectionY = Math.ceil(Math.random() * 10);
-  if (dx < 0) {
-    dx = randomDirectionX;
-  } else {
-    dx = -randomDirectionX;
-  }
-  if (dy < 0) {
-    dy = randomDirectionY;
-  } else {
-    dy = -randomDirectionY;
-  }
-  return {
-    dx,
-    dy
-  };
-}
-
 //描画処理
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -57,12 +36,24 @@ function draw() {
   //円が壁に到達したときの処理
   if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
     //横軸に対してボールを跳ね返す
-    randomDirection();
+    num = Math.ceil(Math.random() * 10);
+    if (dx < 0) {
+      dx = num;
+    } else {
+      dx = -num;
+    }
+    //ボールの色を変える
     coloringArc();
   }
   if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
     //縦軸に対してボールを跳ね返す
-    randomDirection();
+    num = Math.ceil(Math.random() * 10);
+    if (dy < 0) {
+      dy = num;
+    } else {
+      dy = -num;
+    }
+    //ボールの色を変える
     coloringArc();
   }
   //ボールを動かす
