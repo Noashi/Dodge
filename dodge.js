@@ -1,5 +1,6 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
+var startButton = document.getElementById("startButton");
 //円のカラー
 var arcColor = "green";
 //ボールの座標（初期）
@@ -11,6 +12,13 @@ var ballRadius = 20;
 var dx = 2;
 var dy = -2;
 
+//スタート処理
+function start() {
+  startButton.style.display = "none";
+  title.style.display = "none";
+  descreption.style.display = "none";
+  draw();
+}
 //ボールを描画する関数
 function drawArc() {
   ctx.beginPath();
@@ -61,4 +69,8 @@ function draw() {
   y += dy;
   requestAnimationFrame(draw);
 }
-draw();
+
+window.onload = function() {
+  //イベントハンドラ
+  startButton.addEventListener("click", start, false);
+}
