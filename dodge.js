@@ -14,10 +14,11 @@ var dy = -2;
 //マウスの座標
 var relativeX;
 var relativeY;
-//フラッグ
-var startFlag = false;
+
+//イベントハンドラ（マウス）
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
+//マウスの座標を取得
 function mouseMoveHandler(e) {
   relativeX = e.clientX - canvas.offsetLeft;
   relativeY = e.clientY - canvas.offsetTop;
