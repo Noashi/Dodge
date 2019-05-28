@@ -11,6 +11,15 @@ var ballRadius = 20;
 //ボールの動く方向（初期）
 var dx = 2;
 var dy = -2;
+//マウスの座標
+var relativeX;
+var relativeY;
+document.addEventListener("mousemove", mouseMoveHandler, false);
+
+function mouseMoveHandler(e) {
+  relativeX = e.clientX - canvas.offsetLeft;
+  relativeY = e.clientY - canvas.offsetTop;
+}
 
 //スタート処理
 function start() {
@@ -18,6 +27,26 @@ function start() {
   title.style.display = "none";
   descreption.style.display = "none";
   draw();
+}
+function gameOver() {
+  alert("GAME OVER");
+  document.location.reload();
+}
+//衝突検出
+function collisionDetection() {
+  //ボール衝突
+  if(x - ballRadius < relativeX && relativeX < x + ballRadius) {
+    if (y - ballRadius < relativeY && relativeY < y + ballRadius) {
+      gameOver();
+    }
+  }
+  //マウスポインタが枠の外へ行く
+  if(relativeX < 0 || canvas.width < relativeX) {
+    gameOver();
+  }
+  if(relativeY < 0 || canvas.height < relativeY) {
+    gameOver();
+  }
 }
 //ボールを描画する関数
 function drawArc() {
@@ -40,6 +69,7 @@ function coloringArc() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawArc();
+  collisionDetection();
 
   //円が壁に到達したときの処理
   if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
@@ -73,4 +103,4 @@ function draw() {
 window.onload = function() {
   //イベントハンドラ
   startButton.addEventListener("click", start, false);
-}
+};
