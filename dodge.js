@@ -14,6 +14,8 @@ var dy = -2;
 //マウスの座標
 var relativeX;
 var relativeY;
+//フラッグ
+var startFlag = false;
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
 function mouseMoveHandler(e) {
@@ -50,6 +52,13 @@ function collisionDetection() {
 }
 //ボールを描画する関数
 function drawArc() {
+  //マウスポインタのボール
+  ctx.beginPath();
+  ctx.arc(relativeX, relativeY, 5, 0, Math.PI * 2, false);
+  ctx.fillStyle = "#0095DD";
+  ctx.fill();
+  ctx.closePath();
+  //敵のボール
   ctx.beginPath();
   ctx.arc(x, y, ballRadius, 0, Math.PI * 2, false);
   ctx.fillStyle = arcColor;
